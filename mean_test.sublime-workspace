@@ -1,0 +1,315 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/cxm115/personal/projects/mean_test"
+	],
+	"file_history":
+	[
+		"/Users/cxm115/personal/projects/mean_test/domain.txt",
+		"/Users/cxm115/tid/devenv/webui_nginx/webui.local.conf",
+		"/Users/cxm115/tid/devenv/nginx/api.local.conf",
+		"/Users/cxm115/tid/devenv/devinner.sh",
+		"/Users/cxm115/tid/devenv/deven_outter.sh",
+		"/Users/cxm115/tid/devenv/webui_nginx/Dockerfile",
+		"/Users/cxm115/tid/devenv/nginx/Dockerfile",
+		"/Users/cxm115/tid/dev/laravel-dev/app/config/interconnect.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpseclib/phpseclib/build/code-sniffer-ruleset.xml",
+		"/Users/cxm115/tid/dev/laravel-dev/composer.json",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/WebUI/BizProcessors/CreditAlerts.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/EFXServices/CreditAlertsController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/Repositories/Interfaces/CreditAlertsRepositoryInterface.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Routes/CreditAlertsRouteTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/BizProcessors/AccountCreditAlertSettingsBizProcessorTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/DataProcessors/CreditAlertsDataProcessor.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/DataProcessors/CreditAlertsDataProcessorTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/InterconnectService/Services/xsd/creditalerts/AlertDetails.xsd",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/zetacomponents/base/CREDITS",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/InterConnectService/CreditMonitoring/CCMgetAlertsTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/DataProcessors/Interfaces/CreditAlertsDataProcessorInterface.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Repositories/InterConnectCreditAlertsRepositoryTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Controllers/AccountCreditAlertSettingsControllerTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/BizProcessors/CreditAlertsBizProcessorTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Controllers/CreditAlertsControllerTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/ChildMonitoring_Remove.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/dompdf/dompdf/include/image_cache.cls.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/InterconnectService/Services/xsd/InterConnectRequest2-0.xsd",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/BizProcessors/AccountPasswordBizProcessor.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/BizProcessors/AccountUpdateBizProcessor.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/BizProcessors/AccountInformationBizProcessor.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/Repositories/Interfaces/AccountBundleRepositoryInterface.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/Repositories/AccountBundleRepository.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/WebUI/AccountController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/composer/autoload_classmap.php",
+		"/Users/cxm115/tid/dev/laravel-dev/artisan",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Controllers/MobileDeviceControllerTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/EFXServices/MobileDeviceController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Controllers/ChildMonitoringControllerTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Services/Validation/EFXValidationBaseServiceTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/BizProcessors/Interfaces/MobileDeviceBizProcessorInterface.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpunit/phpunit-mock-objects/Tests/MockObjectTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/config/mail.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpunit/phpunit-mock-objects/Tests/MockBuilderTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/Services/Validation/EFXValidationBaseService.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/EFXServices/ChildMonitoringController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/EFXServices/EidQuestionsController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/EFXServices/PhonePinVerificationController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Controllers/PhoneVerificationControllerTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/controllers/Trustedid/EFXServices/Internal/NotificationController.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/laravel/framework/src/Illuminate/Auth/Reminders/PasswordBroker.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/ircmaxell/password-compat/lib/password.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/commands/environment/PrepareApp.php",
+		"/Users/cxm115/tid/dev/laravel-dev/phpunit.xml",
+		"/Users/cxm115/tid/dev/laravel-dev/readme.md",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/twitter/bootstrap/less/responsive-embed.less",
+		"/Users/cxm115/tid/dev/laravel-dev/spec/api/registration_spec.js",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/dompdf/dompdf/www/cssSandpaper/css/reset.css",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/twilio/sdk/Services/Twilio/RestException.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/EFXServices/Services/Validation/ResetPasswordValidationService.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/commands/att/NotificationsReconciler.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/nikic/php-parser/lib/PHPParser/Node/Expr/NotIdentical.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpunit/phpunit/Tests/_files/NoTestCases.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/twig/twig/lib/Twig/NodeOutputInterface.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/zetacomponents/document/NOTICE",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/PhoneVerification_Request.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/tests/Trustedid/EFXServices/Routes/PhonePinVerificationRouteTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpdocumentor/templates/zend/page_header.xsl",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/ChildMonitoring_Add.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/WebUI/BizProcessors/ChildMonitoring.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/database/seeds/ChildSeeder.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/monolog/monolog/src/Monolog/Handler/CubeHandler.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/Account_RegisterDevice.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/CreditAlerts_Details.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/CreditAlerts_Dismiss.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/EidQuestions_Submit.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/Internal_Notification_Send.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/PhoneVerification_Submit.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/FetchPricingValidation.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpdocumentor/phpdocumentor/tests/data/EmptyFile.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/ClosureFinderVisitor.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/assets/yaml/errors.yaml",
+		"/Users/cxm115/tid/dev/laravel-dev/app/views/APIValidationJSONSchema/simpletetvalidation.php",
+		"/Users/cxm115/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/cxm115/tid/dev/laravel-dev/app/filters/EFXServiceBaseFilter.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/Trustedid/Common/Errors/Interfaces/ErrorFacadenterface.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/cilex/cilex/example.php",
+		"/Users/cxm115/tid/dev/laravel-dev/app/database/seeds/InterConnectUserAlertsSeeder.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpunit/phpunit/Tests/_files/ExceptionInTest.php",
+		"/Users/cxm115/tid/dev/laravel-dev/vendor/phpunit/phpunit/PHPUnit/Framework/Constraint/IsNull.php",
+		"/Users/cxm115/tid/dev/laravel-dev/public/index.php",
+		"/Users/cxm115/tid/dev/laravel-dev/laravel.sublime-project",
+		"/Users/cxm115/personal/projects/mean_test/config/passport.js"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"api",
+			"Users",
+			"print",
+			"object",
+			"changeToExactArray",
+			"'validate'"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'valid'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "mean_test.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"interconnectcreditaler",
+				"app/Trustedid/EFXServices/Repositories/InterConnectCreditAlertsRepository.php"
+			],
+			[
+				"creditmonitoringservice",
+				"app/Trustedid/CreditMonitoringService/Services/CreditMonitoringService.php"
+			],
+			[
+				"creditalertsbizpro",
+				"app/Trustedid/EFXServices/BizProcessors/CreditAlertsBizProcessor.php"
+			],
+			[
+				"creditalerttest",
+				"app/tests/Trustedid/InterConnectService/CreditMonitoring/CCMgetAlertsTest.php"
+			],
+			[
+				"accountbizpro",
+				"app/Trustedid/EFXServices/BizProcessors/AccountPasswordBizProcessor.php"
+			],
+			[
+				"mobiledeiconttest",
+				"app/tests/Trustedid/EFXServices/Controllers/MobileDeviceControllerTest.php"
+			],
+			[
+				"mobile",
+				"app/controllers/Trustedid/EFXServices/MobileDeviceController.php"
+			],
+			[
+				"passwordbiz",
+				"app/Trustedid/EFXServices/BizProcessors/AccountPasswordBizProcessor.php"
+			],
+			[
+				"notificationcontro",
+				"app/controllers/Trustedid/EFXServices/Internal/NotificationController.php"
+			],
+			[
+				"phonevercontrotest",
+				"app/tests/Trustedid/EFXServices/Controllers/PhoneVerificationControllerTest.php"
+			],
+			[
+				"childmonitoringconttest",
+				"app/tests/Trustedid/EFXServices/Controllers/ChildMonitoringControllerTest.php"
+			],
+			[
+				"efxvalidati",
+				"app/Trustedid/EFXServices/Services/Validation/EFXValidationBaseService.php"
+			],
+			[
+				"efxvalidationba",
+				"app/tests/Trustedid/EFXServices/Services/Validation/EFXValidationBaseServiceTest.php"
+			],
+			[
+				"interconnect.php",
+				"app/config/interconnect.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 346.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

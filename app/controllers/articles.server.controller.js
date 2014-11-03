@@ -64,6 +64,7 @@ exports.delete = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			console.log(article);
 			res.jsonp(article);
 		}
 	});

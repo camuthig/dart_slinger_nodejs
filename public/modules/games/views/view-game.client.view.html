@@ -1,0 +1,22 @@
+<section data-ng-controller="GamesController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="game.game_type"></h1>
+	</div>
+	<div class="pull-right" data-ng-show="authentication.user._id == game.user._id">
+		<a class="btn btn-primary" href="/#!/games/{{game._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<h3>
+		<span data-ng-bind="game.player1.displayName"></span> vs. <span data-ng-bind="game.player2.displayName"></span>
+	</h3>
+	<small>
+		<em class="text-muted">
+			Started on
+			<span data-ng-bind="game.created | date:'mediumDate'"></span>
+		</em>
+	</small>
+</section>

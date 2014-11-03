@@ -1,0 +1,26 @@
+Game:
+    Player 1 ID
+    Player 2 ID
+    Player 1 score
+    Player 2 score
+    Player 1 scoreboard - data will have to change based on the type of game
+    Player 2 scoreboard
+    Type (cricket, around-the-world, 301)
+    Winner
+    Current Thrower ID
+
+
+
+All below data will be handled by server logic and used for statistics
+Round:
+    Game ID
+    Player ID
+Throw
+    Round ID
+    Points Scored
+    Close Scored (SINGLE, DOUBLE, TRIPLE)
+    Number Hit
+
+    Place Hit (TRIPLE, DOUBLE, SINGLE)
+
+
