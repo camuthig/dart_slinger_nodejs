@@ -35,10 +35,30 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/cxm115/personal/projects/mean_test"
+		"/Users/cxm115/personal/projects/darts",
+		"/Users/cxm115/personal/projects/darts/app",
+		"/Users/cxm115/personal/projects/darts/app/controllers",
+		"/Users/cxm115/personal/projects/darts/app/models",
+		"/Users/cxm115/personal/projects/darts/public",
+		"/Users/cxm115/personal/projects/darts/public/lib",
+		"/Users/cxm115/personal/projects/darts/public/lib/bootstrap/js",
+		"/Users/cxm115/personal/projects/darts/public/modules",
+		"/Users/cxm115/personal/projects/darts/public/modules/games",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/config",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/controllers",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/views",
+		"/Users/cxm115/personal/projects/darts/public/modules/users/controllers",
+		"/Users/cxm115/personal/projects/darts/public/modules/users/services",
+		"/Users/cxm115/personal/projects/darts/public/modules/users/views/players"
 	],
 	"file_history":
 	[
+		"/Users/cxm115/personal/projects/darts/app/controllers/games.server.controller.js",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/views/view-game.client.view.html",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/config/games.client.routes.js",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/views/play-game.client.view.html",
+		"/Users/cxm115/personal/projects/darts/public/modules/games/views/create-game.client.view.html",
+		"/Users/cxm115/personal/projects/darts/app/models/game.server.model.js",
 		"/Users/cxm115/personal/projects/mean_test/domain.txt",
 		"/Users/cxm115/tid/devenv/webui_nginx/webui.local.conf",
 		"/Users/cxm115/tid/devenv/nginx/api.local.conf",

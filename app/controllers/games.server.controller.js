@@ -13,8 +13,19 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var game = new Game(req.body);
-	console.log(req.body);
-	game.user = req.user;
+	game.current_thrower = game.player1;
+
+	var board = [];
+	if(game.game_type ==='Cricket') {
+		//var board = new Array ( );
+		board[0] = ['Score','Closes','Number','Closes','Score'];
+		var index = 1;
+		for(var count = 20; count > 14; count--) {
+			board[index] = [0, 0, count, 0, 0];
+			index++;
+		}
+		game.scoreboard = board;
+	}
 
 	game.save(function(err) {
 		if (err) {
@@ -76,6 +87,7 @@ exports.delete = function(req, res) {
 exports.list = function(req, res) { Game.find().sort('-created').
 	populate('player1', 'displayName').
 	populate('player2', 'displayName').
+	populate('current_thrower', 'displayName').
 	exec(function(err, games) {
 		if (err) {
 			return res.status(400).send({
@@ -93,6 +105,7 @@ exports.list = function(req, res) { Game.find().sort('-created').
 exports.gameByID = function(req, res, next, id) { Game.findById(id).
 	populate('player1', 'displayName').
 	populate('player2', 'displayName').
+	populate('current_thrower', 'displayName').
 	exec(function(err, game) {
 		if (err) return next(err);
 		if (! game) return next(new Error('Failed to load Game ' + id));
@@ -105,7 +118,7 @@ exports.gameByID = function(req, res, next, id) { Game.findById(id).
  * Game authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.game.user.id !== req.user.id) {
+	if (req.game.player1 !== req.user.id && req.game.player2 !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
