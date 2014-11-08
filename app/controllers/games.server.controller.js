@@ -118,7 +118,7 @@ exports.gameByID = function(req, res, next, id) { Game.findById(id).
  * Game authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.game.player1 !== req.user.id && req.game.player2 !== req.user.id) {
+	if (req.game.player1.id !== req.user.id && req.game.player2.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

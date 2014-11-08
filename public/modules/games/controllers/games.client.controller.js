@@ -5,6 +5,20 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 	function($scope, $stateParams, $location, Authentication, Games, Friends) {
 		$scope.authentication = Authentication;
 		$scope.friends = Friends.friends;
+		$scope.round = {
+			1: {
+				number: null,
+				multiplier: null
+			},
+			2: {
+				number: null,
+				multiplier: null
+			},
+			3: {
+				number: null,
+				multiplier: null
+			},
+		};
 
 		// Create new Game
 		$scope.create = function() {
@@ -53,6 +67,34 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+		};
+
+		// Add a round of throws to a game
+		$scope.addRound = function() {
+			var game = $scope.game ;
+
+			game.round = $scope.round;
+
+			game.$update(function() {
+				$location.path('games/' + game._id + '/play');
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+
+			$scope.round = {
+				1: {
+					number: null,
+					multiplier: null
+				},
+				2: {
+					number: null,
+					multiplier: null
+				},
+				3: {
+					number: null,
+					multiplier: null
+				},
+			};
 		};
 
 		// Find a list of Games
