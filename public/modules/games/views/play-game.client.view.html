@@ -88,21 +88,9 @@
         <div class="col-xs-6">
             <!-- Scoreboard -->
             <h4>Scoreboard</h4>
-            <table class="table">
-                <tr>
-                    <td align="left">
-                        <b><span data-ng-bind="game.player1.displayName"></span></b>
-                    </td>
-                    <td align="right">
-                        <b><span data-ng-bind="game.player2.displayName"></span></b>
-                    </td>
-                </tr>
-            </table>
-            <table class="table">
-                <tr data-ng-repeat="row in game.scoreboard">
-                    <td align="center" data-ng-repeat="col in row track by $index">{{col}}</td>
-                </tr>
-            </table>
+            <div data-ng-include src="getScoreboard()">
+                <!-- ng-include will go here to get the partial -->
+            </div>
         </div>
     </div>
 </section>

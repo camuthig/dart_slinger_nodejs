@@ -8,6 +8,11 @@ var mongoose = require('mongoose'),
 	Game = mongoose.model('Game'),
 	_ = require('lodash');
 
+function getGameAdapter(type) {
+	var path = './games/games.' + type;
+	return require(path);
+}
+
 /**
  * Create a Game
  */
@@ -15,17 +20,8 @@ exports.create = function(req, res) {
 	var game = new Game(req.body);
 	game.current_thrower = game.player1;
 
-	var board = [];
-	if(game.game_type ==='Cricket') {
-		//var board = new Array ( );
-		board[0] = ['Score','Closes','Number','Closes','Score'];
-		var index = 1;
-		for(var count = 20; count > 14; count--) {
-			board[index] = [0, 0, count, 0, 0];
-			index++;
-		}
-		game.scoreboard = board;
-	}
+	var adapter = getGameAdapter(game.game_type.toLowerCase());
+	game.scoreboard = adapter.createScoreboard();
 
 	game.save(function(err) {
 		if (err) {
@@ -50,6 +46,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var game = req.game ;
+
 
 	game = _.extend(game , req.body);
 

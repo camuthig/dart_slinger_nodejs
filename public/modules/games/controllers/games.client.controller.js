@@ -108,5 +108,11 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 				gameId: $stateParams.gameId
 			});
 		};
+
+		$scope.getScoreboard = function() {
+			var type = angular.lowercase($scope.game.game_type);
+			return 'modules/games/views/games/' + type + '-scoreboard.client.view.html';
+
+		};
 	}
 ]);

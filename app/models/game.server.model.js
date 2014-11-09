@@ -40,7 +40,7 @@ var GameSchema = new Schema({
 		ref: 'User'
 	},
 	scoreboard: {
-		type: Array
+		type: Schema.Types.Mixed
 	}
 
 });
