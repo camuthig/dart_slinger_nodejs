@@ -41,6 +41,10 @@ var GameSchema = new Schema({
 	},
 	scoreboard: {
 		type: Schema.Types.Mixed
+	},
+	winner: {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
 
 });

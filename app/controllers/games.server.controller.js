@@ -29,6 +29,15 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			// For the frontend, we need the populated values
+			// for the display name as well now that we know
+			// the ID of the winning player.
+			if (game.winner !== null) {
+
+				// todo Figure out how to properly get this when the game
+				// just finishes
+				game.winner = game.current_thrower;
+			}
 			res.jsonp(game);
 		}
 	});
@@ -47,8 +56,13 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
 	var game = req.game ;
 
+	var adapter = getGameAdapter(game.game_type.toLowerCase());
+	game = adapter.updateGameWithRound(req.body.round, game);
 
-	game = _.extend(game , req.body);
+
+	game.player1_score += 25;
+
+	//game = _.extend(game , updated_game);
 
 	game.save(function(err) {
 		if (err) {
@@ -56,6 +70,7 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			console.log(game);
 			res.jsonp(game);
 		}
 	});
@@ -85,6 +100,7 @@ exports.list = function(req, res) { Game.find().sort('-created').
 	populate('player1', 'displayName').
 	populate('player2', 'displayName').
 	populate('current_thrower', 'displayName').
+	populate('winner', 'displayName').
 	exec(function(err, games) {
 		if (err) {
 			return res.status(400).send({
@@ -103,9 +119,11 @@ exports.gameByID = function(req, res, next, id) { Game.findById(id).
 	populate('player1', 'displayName').
 	populate('player2', 'displayName').
 	populate('current_thrower', 'displayName').
+	populate('winner', 'displayName').
 	exec(function(err, game) {
 		if (err) return next(err);
 		if (! game) return next(new Error('Failed to load Game ' + id));
+		console.log(game);
 		req.game = game ;
 		next();
 	});

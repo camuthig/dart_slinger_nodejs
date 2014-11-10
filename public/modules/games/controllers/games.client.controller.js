@@ -73,6 +73,11 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 		$scope.addRound = function() {
 			var game = $scope.game ;
 
+			for(var index = 1; index < 4; index++) {
+				$scope.round[index].number =
+					($scope.round[index].number === 'bull') ? 'bull' : parseInt($scope.round[index].number);
+				$scope.round[index].multiplier = parseInt($scope.round[index].multiplier);
+			}
 			game.round = $scope.round;
 
 			game.$update(function() {
@@ -83,16 +88,16 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 
 			$scope.round = {
 				1: {
-					number: null,
-					multiplier: null
+					number: 16,
+					multiplier: 2
 				},
 				2: {
-					number: null,
-					multiplier: null
+					number: 16,
+					multiplier: 2
 				},
 				3: {
-					number: null,
-					multiplier: null
+					number: 16,
+					multiplier: 2
 				},
 			};
 		};
@@ -113,6 +118,15 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 			var type = angular.lowercase($scope.game.game_type);
 			return 'modules/games/views/games/' + type + '-scoreboard.client.view.html';
 
+		};
+
+		$scope.isOver = function() {
+			if(typeof $scope.game.winner === 'undefined') {
+				return false;
+			}
+			else {
+				return true;
+			}
 		};
 	}
 ]);

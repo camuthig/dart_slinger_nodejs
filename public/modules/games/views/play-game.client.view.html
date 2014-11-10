@@ -29,6 +29,7 @@
         <span data-ng-bind="game.player1.displayName"></span> vs. <span data-ng-bind="game.player1.displayName"></span>
     </h5>
     <h4>Current thrower: <span data-ng-bind="game.current_thrower.displayName"></span></h4>
+    <h4 ng-hide="!isOver()" class="ng-hide">Winner: <span data-ng-bind="game.winner.displayName"></span></h4>
     </div>
 
     <div class="row">
@@ -42,7 +43,7 @@
                                 <td>
                                     <label class="control-label" for="number">Number:</label>
                                     <select class="form-control" data-ng-model="throw.number" id="number">
-                                        <option>1</option>
+                                        <option value=>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
@@ -62,6 +63,7 @@
                                         <option>18</option>
                                         <option>19</option>
                                         <option>20</option>
+                                        <option value="bull">Bull</option>
                                     </select>
                                 </td>
                                 <td>
@@ -76,7 +78,7 @@
                         </table>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Submit" class="btn btn-default">
+                        <input data-ng-disabled="isOver()" type="submit" value="Submit" class="btn btn-default">
                     </div>
                     <div data-ng-show="error" class="text-danger">
                         <strong data-ng-bind="error"></strong>

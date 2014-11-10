@@ -10,11 +10,71 @@
         </tr>
     </table>
     <table class="table">
-        <tr>
-        <td align="center" data-ng-bind="game.scoreboard[16].player1_score"></td>
-        <td align="center" data-ng-bind="game.scoreboard[16].player1_closes"></td>
-        <td align="center">16</td>
-        <td align="center" data-ng-bind="game.scoreboard[16].player2_closes"></td>
-        <td align="center" data-ng-bind="game.scoreboard[16].player2_score"></td>
-        </tr>
+        <thead>
+            <tr>
+                <td align="center">Score</td>
+                <td align="center">Close</td>
+                <td></td>
+                <td align="center">Close</td>
+                <td align="center">Score</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard[20].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard[20].player1_closes"></td>
+                <td align="center">20</td>
+                <td align="center" data-ng-bind="game.scoreboard[20].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard[20].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard[19].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard[19].player1_closes"></td>
+                <td align="center">19</td>
+                <td align="center" data-ng-bind="game.scoreboard[19].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard[19].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard[18].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard[18].player1_closes"></td>
+                <td align="center">18</td>
+                <td align="center" data-ng-bind="game.scoreboard[18].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard[18].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard[17].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard[17].player1_closes"></td>
+                <td align="center">17</td>
+                <td align="center" data-ng-bind="game.scoreboard[17].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard[17].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard[16].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard[16].player1_closes"></td>
+                <td align="center">16</td>
+                <td align="center" data-ng-bind="game.scoreboard[16].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard[16].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard[15].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard[15].player1_closes"></td>
+                <td align="center">15</td>
+                <td align="center" data-ng-bind="game.scoreboard[15].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard[15].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard['bull'].player1_score"></td>
+                <td align="center" data-ng-bind="game.scoreboard['bull'].player1_closes"></td>
+                <td align="center">Bull</td>
+                <td align="center" data-ng-bind="game.scoreboard['bull'].player2_closes"></td>
+                <td align="center" data-ng-bind="game.scoreboard['bull'].player2_score"></td>
+            </tr>
+            <tr>
+                <td align="center" data-ng-bind="game.scoreboard['total'].player1_score"></td>
+                <td></td>
+                <td align="center">Total</td>
+                <td></td>
+                <td align="center" data-ng-bind="game.scoreboard['total'].player2_score"></td>
+            </tr>
+        </tbody>
     </table>
