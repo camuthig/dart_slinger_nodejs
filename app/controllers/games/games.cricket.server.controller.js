@@ -91,6 +91,7 @@ exports.updateGameWithRound = function( round, game ) {
         }
 
     }
+    game[thrower + '_score'] = board.total[thrower + '_score'];
 
     /*
         Check to see if we have won the game based on:

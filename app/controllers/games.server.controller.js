@@ -59,9 +59,6 @@ exports.update = function(req, res) {
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
 	game = adapter.updateGameWithRound(req.body.round, game);
 
-
-	game.player1_score += 25;
-
 	//game = _.extend(game , updated_game);
 
 	game.save(function(err) {
