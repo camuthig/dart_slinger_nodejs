@@ -59,6 +59,8 @@ exports.update = function(req, res) {
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
 	game = adapter.updateGameWithRound(req.body.round, game);
 
+    game.current_thrower = (game.current_thrower.id === game.player1.id) ? game.player2 : game.player1;
+
 	//game = _.extend(game , updated_game);
 
 	game.save(function(err) {
@@ -67,7 +69,6 @@ exports.update = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			console.log(game);
 			res.jsonp(game);
 		}
 	});
