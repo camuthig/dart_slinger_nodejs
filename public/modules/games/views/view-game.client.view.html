@@ -1,6 +1,6 @@
 <section data-ng-controller="GamesController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="game.game_type"></h1>
+		<h1 data-ng-bind="supported_types[game.game_type]"></h1>
 	</div>
 	<div class="pull-right" data-ng-show="authentication.user._id == game.player1._id || authentication.user._id == game.player2._id ">
 		<a class="btn btn-primary" href="/#!/games/{{game._id}}/play">

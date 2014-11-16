@@ -19,6 +19,9 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 				multiplier: null
 			},
 		};
+		$scope.supported_types = {
+			cricket: 'Cricket',
+		};
 
 		// Create new Game
 		$scope.create = function() {
