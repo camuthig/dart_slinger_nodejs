@@ -22,8 +22,11 @@ exports.create = function(req, res) {
 
 	// Verify that the current user is at least one of
 	// the players in the game.
-	if(req.user._id !== req.body.player1._id &&
-		req.user._id !== req.body.player2._id) {
+	console.log(req.user._id);
+	console.log(req.body.player1);
+	console.log(req.body.player2);
+	if(parseInt(req.user._id) !== parseInt(req.body.player1) &&
+		parseInt(req.user._id) !== parseInt(req.body.player2)) {
 		return res.status(400).send({
 			message: 'You must be one of the players in the created game.'
 		});
