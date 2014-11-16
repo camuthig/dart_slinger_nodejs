@@ -20,6 +20,15 @@ exports.create = function(req, res) {
 	var game = new Game(req.body);
 	game.current_thrower = game.player1;
 
+	// Verify that the current user is at least one of
+	// the players in the game.
+	if(req.user._id !== req.body.player1._id &&
+		req.user._id !== req.body.player2._id) {
+		return res.status(400).send({
+			message: 'You must be one of the players in the created game.'
+		});
+	}
+
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
 	game.scoreboard = adapter.createScoreboard();
 
