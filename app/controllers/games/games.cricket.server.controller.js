@@ -42,7 +42,6 @@ exports.updateGameWithRound = function( round, game ) {
     var opponent = (game.current_thrower.id === game.player1.id) ? 'player2' : 'player1';
 
     for (var index = 1; index <= _.size(round); index++) {
-        console.log(round[index]);
         var dart = round[index];
         if (_.has(board, dart.number)) {
             // We know that they hit a number that matters
@@ -58,7 +57,6 @@ exports.updateGameWithRound = function( round, game ) {
                     2. And your opponent has
             */
             if (board[dart.number][thrower + '_closes'] < 3) {
-                console.log('We have not closed yet.');
                 var closes = parseInt(board[dart.number][thrower + '_closes']) + dart.multiplier;
                 var over = closes - 3;
                 if (over > 0){
@@ -67,7 +65,6 @@ exports.updateGameWithRound = function( round, game ) {
 
                     // If our opponent hasn't closed, start scoring.
                     if (board[dart.number][opponent + '_closes'] < 3) {
-                        console.log('Started scoring');
                         var number = (dart.number === 'bull') ? 25 : dart.number;
                         board[dart.number][thrower + '_score'] += number * over;
                         board.total[thrower + '_score'] += number * over;
@@ -78,10 +75,7 @@ exports.updateGameWithRound = function( round, game ) {
                 }
             }
             else {
-                console.log('We have closed.');
-
                 if (board[dart.number][opponent + '_closes'] < 3) {
-                    console.log('Keep scoring!!!');
                     // Our opponent hasn't closed, so you're scoring.
                     var score = (dart.number === 'bull') ? 25 : dart.number;
                     board[dart.number][thrower + '_score'] += score * dart.multiplier;
@@ -101,13 +95,11 @@ exports.updateGameWithRound = function( round, game ) {
     var allClosed = true;
     _.forIn(board, function(value, key) {
         if (key !== 'total' && board[key][thrower + '_closes'] !== 3) {
-            console.log('Checking: ' + key);
             allClosed = false;
             return false;
         }
     });
     if (allClosed && board.total[thrower + '_score'] >= board.total[opponent + '_score']) {
-        console.log('You have won the game');
         game.winner = game.current_thrower;
     }
 

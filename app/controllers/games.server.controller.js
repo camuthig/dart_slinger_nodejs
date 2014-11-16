@@ -136,7 +136,6 @@ exports.gameByID = function(req, res, next, id) { Game.findById(id).
 	exec(function(err, game) {
 		if (err) return next(err);
 		if (! game) return next(new Error('Failed to load Game ' + id));
-		console.log(game);
 		req.game = game ;
 		next();
 	});
