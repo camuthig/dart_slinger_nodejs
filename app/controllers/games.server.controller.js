@@ -78,15 +78,22 @@ exports.update = function(req, res) {
 
     game.current_thrower = (game.current_thrower.id === game.player1.id) ? game.player2 : game.player1;
 
-	//game = _.extend(game , updated_game);
-
 	game.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(game);
+			// If winner has just been set, we need to ensure we populate the
+			// displayName value from the database.
+			if(game.winner) {
+				game.populate({path: 'winner', select: 'displayName'}, function(err, game) {
+					res.jsonp(game);
+				});
+			}
+			else {
+				res.jsonp(game);
+			}
 		}
 	});
 };

@@ -28,8 +28,8 @@
     <h5>
         <span data-ng-bind="game.player1.displayName"></span> vs. <span data-ng-bind="game.player2.displayName"></span>
     </h5>
-    <h4>Current thrower: <span data-ng-bind="game.current_thrower.displayName"></span></h4>
-    <h4 ng-hide="!isOver()" class="ng-hide">Winner: <span data-ng-bind="game.winner.displayName"></span></h4>
+    <h4 data-ng-hide="isOver()">Current thrower: <span data-ng-bind="game.current_thrower.displayName"></span></h4>
+    <h4 data-ng-hide="!isOver()" class="ng-hide">Winner: <span data-ng-bind="game.winner.displayName"></span></h4>
     </div>
 
     <div class="row">
