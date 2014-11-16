@@ -63,7 +63,7 @@
                                         <option>18</option>
                                         <option>19</option>
                                         <option>20</option>
-                                        <option value="bull">Bull</option>
+                                        <option value="bull" data-ng-hide="throw.multiplier == 3">Bull</option>
                                     </select>
                                 </td>
                                 <td>
@@ -71,7 +71,7 @@
                                     <select class="form-control" data-ng-model="throw.multiplier" id="multiplier" >
                                         <option>1</option>
                                         <option>2</option>
-                                        <option>3</option>
+                                        <option data-ng-hide="throw.number === 'bull'">3</option>
                                     </select>
                                 </td>
                             </tr>
