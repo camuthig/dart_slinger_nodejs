@@ -68,6 +68,11 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
 	var game = req.game ;
 
+	if(game.winner){
+		res.jsonp(game);
+		return;
+	}
+
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
 	game = adapter.updateGameWithRound(req.body.round, game);
 
