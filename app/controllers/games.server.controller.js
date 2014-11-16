@@ -41,15 +41,6 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			// For the frontend, we need the populated values
-			// for the display name as well now that we know
-			// the ID of the winning player.
-			if (game.winner !== null) {
-
-				// todo Figure out how to properly get this when the game
-				// just finishes
-				game.winner = game.current_thrower;
-			}
 			res.jsonp(game);
 		}
 	});
