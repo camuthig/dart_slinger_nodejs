@@ -43,6 +43,9 @@ exports.updateGameWithRound = function( round, game ) {
 
     for (var index = 1; index <= _.size(round); index++) {
         var dart = round[index];
+        var over = 0;
+        var closes = 0;
+        var score = 0;
         if (_.has(board, dart.number)) {
             // We know that they hit a number that matters
 
@@ -57,17 +60,18 @@ exports.updateGameWithRound = function( round, game ) {
                     2. And your opponent has
             */
             if (board[dart.number][thrower + '_closes'] < 3) {
-                var closes = parseInt(board[dart.number][thrower + '_closes']) + dart.multiplier;
-                var over = closes - 3;
+                closes = parseInt(board[dart.number][thrower + '_closes']) + dart.multiplier;
+                over = closes - 3;
                 if (over > 0){
+                    closes = closes - over; 
                     // Set closes to 3 and determine what we went over.
                     board[dart.number][thrower + '_closes'] = 3;
 
                     // If our opponent hasn't closed, start scoring.
                     if (board[dart.number][opponent + '_closes'] < 3) {
-                        var number = (dart.number === 'bull') ? 25 : dart.number;
-                        board[dart.number][thrower + '_score'] += number * over;
-                        board.total[thrower + '_score'] += number * over;
+                        score = ((dart.number === 'bull') ? 25 : dart.number) * over;
+                        board[dart.number][thrower + '_score'] += score;
+                        board.total[thrower + '_score'] += score;
                     }
                 }
                 else {
@@ -77,11 +81,34 @@ exports.updateGameWithRound = function( round, game ) {
             else {
                 if (board[dart.number][opponent + '_closes'] < 3) {
                     // Our opponent hasn't closed, so you're scoring.
-                    var score = (dart.number === 'bull') ? 25 : dart.number;
-                    board[dart.number][thrower + '_score'] += score * dart.multiplier;
-                    board.total[thrower + '_score'] += score*dart.multiplier;
+                    score = ((dart.number === 'bull') ? 25 : dart.number) * dart.multiplier;
+                    board[dart.number][thrower + '_score'] += score;
+                    board.total[thrower + '_score'] += score;
                 }
             }
+
+            // Log the determined score information about the round
+            round[index] = {
+                order: index,
+                target: ((dart.number === 'bull') ? 25 : dart.number),
+                multiplier: dart.multiplier,
+                score: (score > 0),
+                score_amount: score,
+                close: (closes > 0),
+                close_amount: closes
+            };
+        }
+        else {
+            // Just log simple information for the throw
+            round[index] = {
+                order: index,
+                target: ((dart.number === 'bull') ? 25 : dart.number),
+                multiplier: dart.multiplier,
+                score: false,
+                score_amount: 0,
+                close: false,
+                close_amount: 0
+            };
         }
 
     }

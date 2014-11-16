@@ -6,6 +6,8 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Game = mongoose.model('Game'),
+	Round = mongoose.model('Round'),
+	Throw = mongoose.model('Throw'),
 	_ = require('lodash');
 
 function getGameAdapter(type) {
@@ -22,9 +24,6 @@ exports.create = function(req, res) {
 
 	// Verify that the current user is at least one of
 	// the players in the game.
-	console.log(req.user._id);
-	console.log(req.body.player1);
-	console.log(req.body.player2);
 	if(parseInt(req.user._id) !== parseInt(req.body.player1) &&
 		parseInt(req.user._id) !== parseInt(req.body.player2)) {
 		return res.status(400).send({
@@ -67,6 +66,7 @@ exports.update = function(req, res) {
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
 	game = adapter.updateGameWithRound(req.body.round, game);
 
+	var old_thrower = game.current_thrower;
     game.current_thrower = (game.current_thrower.id === game.player1.id) ? game.player2 : game.player1;
 
 	game.save(function(err) {
@@ -85,6 +85,24 @@ exports.update = function(req, res) {
 			else {
 				res.jsonp(game);
 			}
+		}
+	});
+
+	var round = new Round({game: game._id, user: old_thrower});
+	round.save(function(err) {
+		if (err) {
+			console.log('Error saving the round: ' + errorHandler.getErrorMessage(err));
+		}
+		else {
+			for (var index = 1; index <= _.size(req.body.round); index++) {
+				req.body.round[index].round = round;
+				var dart = new Throw(req.body.round[index]);
+				dart.save(function(err) {
+					if(err) {
+						console.log('Error saving throw: ' + errorHandler.getErrorMessage(err));
+					}
+				});
+			};
 		}
 	});
 };
