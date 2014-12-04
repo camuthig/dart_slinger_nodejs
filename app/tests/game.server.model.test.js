@@ -27,10 +27,10 @@ describe('Game Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user.save(function() {
 			game = new Game({
-				name: 'Game Name',
-				user: user
+				player1: user,
+				player2: user
 			});
 
 			done();
@@ -44,18 +44,9 @@ describe('Game Model Unit Tests:', function() {
 				done();
 			});
 		});
-
-		it('should be able to show an error when try to save without name', function(done) { 
-			game.name = '';
-
-			return game.save(function(err) {
-				should.exist(err);
-				done();
-			});
-		});
 	});
 
-	afterEach(function(done) { 
+	afterEach(function(done) {
 		Game.remove().exec();
 		User.remove().exec();
 

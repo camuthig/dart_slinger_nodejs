@@ -4,7 +4,7 @@
 angular.module('games').controller('GamesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Games', 'Friends',
 	function($scope, $stateParams, $location, Authentication, Games, Friends) {
 		$scope.authentication = Authentication;
-		$scope.friends = Friends.friends;
+
 		$scope.round = {
 			1: {
 				number: null,
@@ -21,6 +21,10 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 		};
 		$scope.supported_types = {
 			cricket: 'Cricket',
+		};
+
+		$scope.findFriends = function() {
+			$scope.friends = Friends.getFriends();
 		};
 
 		// Create new Game

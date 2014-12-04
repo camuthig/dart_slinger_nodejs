@@ -50,7 +50,7 @@
 			});
 		}));
 
-		it('$scope.find() should create an array with at least one Game object fetched from XHR', inject(function(Games) {
+		it('$scope.find() should create an array with at least one Game object fetched from XHR', inject(function(Games, Users) {
 			// Create sample Game using the Games service
 			var sampleGame = new Games({
 				name: 'New Game'
@@ -70,7 +70,7 @@
 			expect(scope.games).toEqualData(sampleGames);
 		}));
 
-		it('$scope.findOne() should create an array with one Game object fetched from XHR using a gameId URL parameter', inject(function(Games) {
+		it('$scope.findOne() should create an array with one Game object fetched from XHR using a gameId URL parameter', inject(function(Games, Users) {
 			// Define a sample Game object
 			var sampleGame = new Games({
 				name: 'New Game'
@@ -90,7 +90,7 @@
 			expect(scope.game).toEqualData(sampleGame);
 		}));
 
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Games) {
+		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Games, Users) {
 			// Create a sample Game object
 			var sampleGamePostData = new Games({
 				name: 'New Game'

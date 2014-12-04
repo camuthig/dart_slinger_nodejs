@@ -52,6 +52,8 @@ exports.read = function(req, res) {
 	res.jsonp(req.game);
 };
 
+
+
 /**
  * Update a Game
  */
@@ -97,12 +99,16 @@ exports.update = function(req, res) {
 			for (var index = 1; index <= _.size(req.body.round); index++) {
 				req.body.round[index].round = round;
 				var dart = new Throw(req.body.round[index]);
+				// We'll ignore the issue of defining the function here since the
+				// functionality is simple and performance in the async scenario
+				// is of little concern.
+				/* jshint loopfunc:true */
 				dart.save(function(err) {
 					if(err) {
 						console.log('Error saving throw: ' + errorHandler.getErrorMessage(err));
 					}
 				});
-			};
+			}
 		}
 	});
 };
