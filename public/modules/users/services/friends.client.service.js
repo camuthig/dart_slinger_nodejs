@@ -1,13 +1,12 @@
 'use strict';
 
 // Authentication service for user variables
-angular.module('users').factory('Friends', [ 'Users',
+angular.module('users').service('Friends', [ 'Users', function(Users) {
 
 	// Find a list of Users
-    function(Users) {
-        var _this = this;
-         return {
-            friends: Users.query()
-        };
-    }
+    this.getFriends = function() {
+        return Users.query();
+    };
+}
+
 ]);
