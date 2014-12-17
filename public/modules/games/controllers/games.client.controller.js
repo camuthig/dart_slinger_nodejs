@@ -34,6 +34,10 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 			var game = new Games ({
 				name: this.name,
 				game_type: this.game_type,
+				players: [
+					this.player1,
+					this.player2
+				],
 				player1: this.player1,
 				player2: this.player2
 			});
@@ -135,5 +139,16 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 				return true;
 			}
 		};
+
+		$scope.userIsPlaying = function() {
+			for (var i = 0; i < $scope.game.players.length; i++) {
+				if ($scope.authentication.user._id === $scope.game.players[i]._id) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
 	}
 ]);
