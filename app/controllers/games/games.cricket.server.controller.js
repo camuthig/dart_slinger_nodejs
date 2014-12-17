@@ -12,9 +12,9 @@ exports.getPlayerRules = function() {
     };
 
     return player_rules;
-}
+};
 
-exports.createScoreboard = function() {
+exports.createScoreboard = function(game) {
     var board = {};
     //var board = new Array ( );
     for(var index = 20; index > 14; index--) {
@@ -36,7 +36,16 @@ exports.createScoreboard = function() {
         player2_score: 0
     };
 
-    return board;
+    game.scoreboard = board;
+
+    // Initialize each players score
+    var scores = [];
+    _.forEach(game.players, function(player, key) {
+        scores[key] = 0;
+    });
+    game.scores = scores;
+
+    return game;
 };
 
 /**
@@ -46,9 +55,8 @@ exports.createScoreboard = function() {
  */
 exports.updateGameWithRound = function( round, game ) {
     var board = game.scoreboard;
-    var
-    var thrower = (game.current_thrower.id === game.player1.id) ? 'player1' : 'player2';
-    var opponent = (game.current_thrower.id === game.player1.id) ? 'player2' : 'player1';
+    var thrower = (game.current_thrower.id === game.players[0].id) ? 'player1' : 'player2';
+    var opponent = (game.current_thrower.id === game.players[0].id) ? 'player2' : 'player1';
 
     for (var index = 1; index <= _.size(round); index++) {
         var dart = round[index];

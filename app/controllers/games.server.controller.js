@@ -19,29 +19,44 @@ function getGameAdapter(type) {
  * Get the game player rules
  */
 exports.createRules = function(req, res) {
+	var game = new Game(req.body);
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
 	res.jsonp(adapter.getPlayerRules());
-}
+};
 
 /**
  * Create a Game
  */
 exports.create = function(req, res) {
 	var game = new Game(req.body);
-	game.current_thrower = game.player1;
+	game.current_thrower = game.players[0];
 
 	// Verify that the current user is at least one of
 	// the players in the game.
-	if(parseInt(req.user._id) !== parseInt(req.body.player1) &&
-		parseInt(req.user._id) !== parseInt(req.body.player2)) {
+	var a_player = false;
+	_.forEach(game.players, function(player) {
+		if (parseInt(player) === parseInt(req.user._id)) {
+			a_player = true;
+			return false;
+		}
+	});
+	if (!a_player) {
 		return res.status(400).send({
 			message: 'You must be one of the players in the created game.'
 		});
 	}
 
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
-	var rules = adapter.getPlayerRules()
-	game.scoreboard = adapter.createScoreboard();
+
+	// Check the maximum number of players allowed.
+	var rules = adapter.getPlayerRules();
+	if (rules.max_players < _.size(game.players)) {
+		return res.status(400).send({
+			message: 'This type of game can only have ' + rules.max_players + ' players'
+		});
+	}
+
+	game = adapter.createScoreboard(game);
 
 	game.save(function(err) {
 		if (err) {
@@ -78,7 +93,25 @@ exports.update = function(req, res) {
 	game = adapter.updateGameWithRound(req.body.round, game);
 
 	var old_thrower = game.current_thrower;
-    game.current_thrower = (game.current_thrower.id === game.player1.id) ? game.player2 : game.player1;
+	// if the index of current_thrower in players is size-1,
+	// then reset the current thrower to 0. Otherwise, set
+	// the current thrower to players[current_thrower_index+1]
+	console.log(game.players);
+	console.log(game.current_thrower);
+	var current_thrower_index = -1;
+	_.forEach(game.players, function(player, key) {
+		if(player.id === game.current_thrower.id) {
+			current_thrower_index = key;
+			return false;
+		}
+	});
+	console.log(current_thrower_index);
+	if ( current_thrower_index === _.size(game.players) - 1) {
+		game.current_thrower = game.players[0];
+	}
+	else {
+		game.current_thrower = game.players[current_thrower_index+1];
+	}
 
 	game.save(function(err) {
 		if (err) {
@@ -143,8 +176,7 @@ exports.delete = function(req, res) {
  * List of Games
  */
 exports.list = function(req, res) { Game.find().sort('-created').
-	populate('player1', 'displayName').
-	populate('player2', 'displayName').
+	populate('players', 'displayName').
 	populate('current_thrower', 'displayName').
 	populate('winner', 'displayName').
 	exec(function(err, games) {
@@ -162,8 +194,7 @@ exports.list = function(req, res) { Game.find().sort('-created').
  * Game middleware
  */
 exports.gameByID = function(req, res, next, id) { Game.findById(id).
-	populate('player1', 'displayName').
-	populate('player2', 'displayName').
+	populate('players', 'displayName').
 	populate('current_thrower', 'displayName').
 	populate('winner', 'displayName').
 	exec(function(err, game) {
@@ -178,7 +209,14 @@ exports.gameByID = function(req, res, next, id) { Game.findById(id).
  * Game authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.game.player1.id !== req.user.id && req.game.player2.id !== req.user.id) {
+	var a_player = false;
+	_.forEach(req.game.players, function(player) {
+		if (parseInt(player._id) === parseInt(req.user.id)) {
+			a_player = true;
+			return false;
+		}
+	});
+	if (!a_player) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
