@@ -9,6 +9,9 @@ module.exports = function(app) {
 		.get(games.list)
 		.post(users.requiresLogin, games.create);
 
+	app.route('/games/:game/player_rules')
+		.get(games.createRules);
+
 	app.route('/games/:gameId')
 		.get(games.read)
 		.put(users.requiresLogin, games.hasAuthorization, games.update)

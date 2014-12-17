@@ -6,6 +6,14 @@
  */
 var _ = require('lodash');
 
+exports.getPlayerRules = function() {
+    var player_rules = {
+        max_players: 2
+    };
+
+    return player_rules;
+}
+
 exports.createScoreboard = function() {
     var board = {};
     //var board = new Array ( );
@@ -38,6 +46,7 @@ exports.createScoreboard = function() {
  */
 exports.updateGameWithRound = function( round, game ) {
     var board = game.scoreboard;
+    var
     var thrower = (game.current_thrower.id === game.player1.id) ? 'player1' : 'player2';
     var opponent = (game.current_thrower.id === game.player1.id) ? 'player2' : 'player1';
 
@@ -63,7 +72,7 @@ exports.updateGameWithRound = function( round, game ) {
                 closes = parseInt(board[dart.number][thrower + '_closes']) + dart.multiplier;
                 over = closes - 3;
                 if (over > 0){
-                    closes = closes - over; 
+                    closes = closes - over;
                     // Set closes to 3 and determine what we went over.
                     board[dart.number][thrower + '_closes'] = 3;
 

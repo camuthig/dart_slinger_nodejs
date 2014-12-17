@@ -16,6 +16,14 @@ function getGameAdapter(type) {
 }
 
 /**
+ * Get the game player rules
+ */
+exports.createRules = function(req, res) {
+	var adapter = getGameAdapter(game.game_type.toLowerCase());
+	res.jsonp(adapter.getPlayerRules());
+}
+
+/**
  * Create a Game
  */
 exports.create = function(req, res) {
@@ -32,6 +40,7 @@ exports.create = function(req, res) {
 	}
 
 	var adapter = getGameAdapter(game.game_type.toLowerCase());
+	var rules = adapter.getPlayerRules()
 	game.scoreboard = adapter.createScoreboard();
 
 	game.save(function(err) {
