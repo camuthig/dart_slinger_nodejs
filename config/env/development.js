@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/mean-dev',
+	db: 'mongodb://localhost/dartslinger-dev',
 	app: {
-		title: 'MEAN - Development Environment'
+		title: 'Dart Slinger'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
