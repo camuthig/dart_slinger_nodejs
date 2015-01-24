@@ -6,7 +6,8 @@ module.exports = {
 		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
-	port: process.env.PORT || 9000,
+	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 9000,
+	ipaddr: process.env.OPENSHIFT_NODEJS_PORT || '127.0.0.1',
 	templateEngine: 'swig',
 	sessionSecret: 'MEAN',
 	sessionCollection: 'sessions',
