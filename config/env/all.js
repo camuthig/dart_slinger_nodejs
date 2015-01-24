@@ -7,7 +7,7 @@ module.exports = {
 		keywords: 'MongoDB, Express, AngularJS, Node.js'
 	},
 	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 9000,
-	ipaddr: process.env.OPENSHIFT_NODEJS_PORT || '127.0.0.1',
+	ipaddr: process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
 	templateEngine: 'swig',
 	sessionSecret: 'MEAN',
 	sessionCollection: 'sessions',
