@@ -45,7 +45,7 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 				// Clear form fields
 				$scope.name = '';
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				$scope.error = errorResponse.data.error;
 			});
 		};
 
@@ -70,9 +70,10 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 			var game = $scope.game ;
 
 			game.$update(function() {
+				$scope.error = {};
 				$location.path('games/' + game._id);
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				$scope.error = errorResponse.data.error;
 			});
 		};
 
@@ -88,23 +89,24 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 			game.round = $scope.round;
 
 			game.$update(function() {
+				$scope.error = {};
 				$location.path('games/' + game._id + '/play');
 			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				$scope.error = errorResponse.data.error;
 			});
 
 			$scope.round = {
 				1: {
-					number: 16,
-					multiplier: 2
+					number: null,
+					multiplier: null
 				},
 				2: {
-					number: 16,
-					multiplier: 2
+					number: null,
+					multiplier: null
 				},
 				3: {
-					number: 16,
-					multiplier: 2
+					number: null,
+					multiplier: null
 				},
 			};
 		};
