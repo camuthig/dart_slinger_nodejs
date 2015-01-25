@@ -2,13 +2,15 @@
 
 module.exports = {
 	app: {
-		title: 'MEAN',
-		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-		keywords: 'MongoDB, Express, AngularJS, Node.js'
+		title: 'Dart Slinger',
+		description: 'A dart tracking and challenge application built on mean.js',
+		keywords: 'darts, darts training, dart slinger'
 	},
 	port: process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 9000,
 	ipaddr: process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
 	templateEngine: 'swig',
+	// FIXME
+	// This should be moved out to an environment property instead.
 	sessionSecret: 'MEAN',
 	sessionCollection: 'sessions',
 	assets: {
@@ -19,11 +21,11 @@ module.exports = {
 			],
 			js: [
 				'public/lib/angular/angular.js',
-				'public/lib/angular-resource/angular-resource.js', 
-				'public/lib/angular-cookies/angular-cookies.js', 
-				'public/lib/angular-animate/angular-animate.js', 
-				'public/lib/angular-touch/angular-touch.js', 
-				'public/lib/angular-sanitize/angular-sanitize.js', 
+				'public/lib/angular-resource/angular-resource.js',
+				'public/lib/angular-cookies/angular-cookies.js',
+				'public/lib/angular-animate/angular-animate.js',
+				'public/lib/angular-touch/angular-touch.js',
+				'public/lib/angular-sanitize/angular-sanitize.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'
