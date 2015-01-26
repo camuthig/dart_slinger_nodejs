@@ -90,25 +90,24 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 
 			game.$update(function() {
 				$scope.error = {};
+				$scope.round = {
+					1: {
+						number: null,
+						multiplier: null
+					},
+					2: {
+						number: null,
+						multiplier: null
+					},
+					3: {
+						number: null,
+						multiplier: null
+					},
+				};
 				$location.path('games/' + game._id + '/play');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.error;
 			});
-
-			$scope.round = {
-				1: {
-					number: null,
-					multiplier: null
-				},
-				2: {
-					number: null,
-					multiplier: null
-				},
-				3: {
-					number: null,
-					multiplier: null
-				},
-			};
 		};
 
 		// Find a list of Games
