@@ -4,7 +4,9 @@
  */
 var init = require('./config/init')(),
 	config = require('./config/config'),
-	mongoose = require('mongoose');
+    _ = require('lodash'),
+	mongoose = require('mongoose'),
+    winston = require('winston');
 
 /**
  * Main application entry file.
@@ -17,6 +19,11 @@ var db = mongoose.connect(config.db, function(err) {
 		console.error('\x1b[31m', 'Could not connect to MongoDB!');
 		console.log(err);
 	}
+});
+
+// Boostrap the logging configurations
+_.forEach(config.logs, function (config, name) {
+    winston.loggers.add(name, config);
 });
 
 // Init the express application

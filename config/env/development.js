@@ -2,6 +2,17 @@
 
 module.exports = {
 	db: 'mongodb://localhost/dartslinger-dev',
+    logs: {
+        'app_log': {
+            file: {
+                filename: './storage/logs/app.log',
+                colorize: true
+                },
+            console: {
+                silent: false
+                }
+        }
+    },
 	app: {
 		title: 'Dart Slinger'
 	},

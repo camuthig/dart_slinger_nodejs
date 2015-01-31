@@ -5,6 +5,8 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
+    winston = require('winston'),
+    logger = winston.loggers.get('app_log'),
 	Game = mongoose.model('Game'),
 	Round = mongoose.model('Round'),
 	Throw = mongoose.model('Throw'),
@@ -38,6 +40,7 @@ function createLogic(req, next) {
 
 	game.save(function(err) {
 		if (err) {
+            logger.error('Unable to save created game.', {message: errorHandler.getErrorMessage(err)});
 			next({
 				error: {
 					message: errorHandler.getErrorMessage(err)
@@ -83,6 +86,7 @@ function validateUpdateRequst(req, next) {
 	// 		Number 25 and Multiplier 3
 	// 		More than three throws in a round
 	if (_.size(round) > 3) {
+        logger.error('More than three throws were included in the round.', {user: req.user.id});
 		errors = {
 			error: {
 				message: 'There can only be three throws per round.'
@@ -94,6 +98,12 @@ function validateUpdateRequst(req, next) {
 		if ( round[index].number &&
                 !(round[index].number >= 1 && round[index].number <= 20) &&
                 (round[index].number !== 25 && round[index.number !== 'bull'])) {
+            logger.error(
+                'A non-existing number was provided for the throw.',
+                {
+                    user: req.user.id,
+                    'throw': round[index]
+                });
 			index_errors.push({
 				message: 'The number is not a valid value on a dart board.'
 			});
@@ -101,16 +111,29 @@ function validateUpdateRequst(req, next) {
 		if ( round[index].multiplier &&
                 !(round[index].multiplier >=1 &&
                 round[index].multiplier <= 3)) {
+            logger.error(
+                'A non-existing multipler was provided for the throw.',
+                {
+                    user: req.user.id,
+                    'throw': round[index]
+                });
 			index_errors.push({
 				message: 'The multiplier is not a valid value on a dart board.'
 			});
 		}
 		if ((round[index].number === 25 || round[index].number === 'bull') && round[index].multiplier === 3) {
+            logger.error('Triple bull was provided for the throw.',{user: req.user.id});
 			index_errors.push({
 				message: 'There is no triple bulls eye on the board.'
 			});
 		}
         if ( (round[index].number && !round[index].multiplier) || (!round[index].number && round[index].multiplier)) {
+            logger.error(
+                'The multiplier or number was missing for the throw.',
+                {
+                    user: req.user.id,
+                    'throw': round[index]
+                });
             index_errors.push({
                 message: 'Both the number and multiplier must be provided.'
             });
@@ -134,7 +157,7 @@ function saveRound(req, game_id, user_id) {
     var round = new Round({game: game_id, user: user_id});
     round.save(function(err) {
         if (err) {
-            console.log('Error saving the round: ' + errorHandler.getErrorMessage(err));
+            logger.error('Error saving the round: ' + errorHandler.getErrorMessage(err));
         }
         else {
             for (var index = 1; index <= _.size(req.body.round); index++) {
@@ -146,7 +169,7 @@ function saveRound(req, game_id, user_id) {
                 /* jshint loopfunc:true */
                 dart.save(function(err) {
                     if(err) {
-                        console.log('Error saving throw: ' + errorHandler.getErrorMessage(err));
+                        logger.error('Error saving throw: ' + errorHandler.getErrorMessage(err));
                     }
                 });
             }
@@ -164,6 +187,7 @@ function updateLogic(req, next) {
     var game = req.game ;
 
     if(game.winner){
+        logger.error('The game is already completed.', {game: game.id});
         return next({
             error: {
                 message: 'This game is already completed.'
@@ -183,6 +207,7 @@ function updateLogic(req, next) {
 
             game.save(function(err) {
                 if (err) {
+                    logger.error('Error saving the game after round update.', {error: errorHandler.getErrorMessage(err)});
                     return next({
                         error: {
                             message: errorHandler.getErrorMessage(err)
@@ -194,6 +219,7 @@ function updateLogic(req, next) {
                     if(game.winner) {
                         game.populate({path: 'winner', select: 'displayName'}, function(err, game) {
                             if (err) {
+                                logger.error('Error populating the winner displayName after round update.', {error: errorHandler.getErrorMessage(err)});
                                 return next({
                                     error: {
                                         message: errorHandler.getErrorMessage(err)

@@ -2,6 +2,17 @@
 
 module.exports = {
 	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/dartslinger',
+    logs: {
+        'app_log': {
+            file: {
+                filename: process.env.OPENSHIFT_LOG_DIR + 'app.log' || './storage/logs/app.log',
+                colorize: true
+                },
+            console: {
+                silent: true
+                }
+        }
+    },
 	// FIXME
 	// Need to figure out why these assets are not being served up properly
 	// when I push out to OpenShift.

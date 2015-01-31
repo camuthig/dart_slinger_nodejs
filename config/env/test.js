@@ -2,6 +2,18 @@
 
 module.exports = {
 	db: 'mongodb://localhost/dartslinger-test',
+    logs: {
+        'app_log': {
+            file: {
+                filename: './storage/logs/test.log',
+                colorize: true,
+                prettyPrint: true
+                },
+            console: {
+                silent: true
+                }
+        }
+    },
 	port: 3001,
 	app: {
 		title: 'Dart Slinger -  Test Environment'

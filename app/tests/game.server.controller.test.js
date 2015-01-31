@@ -119,7 +119,7 @@ describe('Game Controller Unit Tests:', function() {
                     populate('current_thrower', 'displayName').
                     exec(function(err, game) {
                         req_game = game ;
-                    })
+                    });
 			});
 
 			checkCreated(done);
