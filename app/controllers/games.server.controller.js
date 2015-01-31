@@ -49,6 +49,8 @@ function createLogic(req, next) {
 	});
 }
 
+module.exports.createLogic = createLogic;
+
 exports.create = function(req, res) {
 	createLogic(req, function(result) {
 		if ('error' in result) {
@@ -89,7 +91,6 @@ function validateUpdateRequst(req, next) {
 	}
 	for (var index = 1; index <= _.size(round); index++) {
 		var index_errors = [];
-        console.log(round[index].number);
 		if ( round[index].number &&
                 !(round[index].number >= 1 && round[index].number <= 20) &&
                 (round[index].number !== 25 && round[index.number !== 'bull'])) {
@@ -163,15 +164,17 @@ function updateLogic(req, next) {
     var game = req.game ;
 
     if(game.winner){
-        return next(game);
+        return next({
+            error: {
+                message: 'This game is already completed.'
+            }
+        });
     }
 
     validateUpdateRequst(req, function(errors) {
         if(!(_.isEmpty(errors.error))) {
-            console.log('There was a validation error');
             return next(errors);
         } else{
-            console.log('There was not a validation error');
             var adapter = getGameAdapter(game.game_type.toLowerCase());
             game = adapter.updateGameWithRound(req.body.round, game);
 
@@ -213,16 +216,16 @@ function updateLogic(req, next) {
     });
 }
 
+module.exports.updateLogic = updateLogic;
+
 /**
  * Update a Game
  */
 exports.update = function(req, res) {
 	updateLogic(req, function(result) {
         if ('error' in result) {
-            console.log('There was an error updating');
             return res.status(400).send(result);
         } else {
-            console.log('There was not an error updating');
             res.jsonp(result);
         }
     });
