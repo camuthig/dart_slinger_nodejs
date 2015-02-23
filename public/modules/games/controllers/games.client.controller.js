@@ -1,8 +1,8 @@
 'use strict';
 
 // Games controller
-angular.module('games').controller('GamesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Games', 'Friends',
-	function($scope, $stateParams, $location, Authentication, Games, Friends) {
+angular.module('games').controller('GamesController', ['$scope', '$http', '$httpBackend', '$stateParams', '$location', 'Authentication', 'Games', 'Friends',
+	function($scope, $http, $httpBackend, $stateParams, $location, Authentication, Games, Friends) {
 		$scope.authentication = Authentication;
 
 		$scope.round = {
@@ -107,6 +107,20 @@ angular.module('games').controller('GamesController', ['$scope', '$stateParams',
 				$location.path('games/' + game._id + '/play');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.error;
+			});
+		};
+
+		// Allow your opponent to update your score
+		$scope.allowScoreUpdate = function() {
+			var game = $scope.game;
+			var url = '/games/' + game._id + '/allow_update';
+			$http.post(url, $scope.credentials).success(function(response) {
+
+				$scope.error = {};
+				// And redirect to the index page
+				//$location.path('games/' + game._id + '/play');
+			}).error(function(response) {
+				$scope.error = response.message;
 			});
 		};
 

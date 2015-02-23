@@ -8,6 +8,10 @@ angular.module('games').factory('Games', ['$resource',
 			update: {
 				method: 'PUT'
 			}
+			// allowUpdate: {
+			// 	method: 'POST',
+			// 	url: 'games/:gameId/allow_update'
+			// }
 		});
 	}
 ]);

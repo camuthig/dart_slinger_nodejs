@@ -8,3 +8,5 @@ public/dist
 app/tests/coverage/
 .bower-*/
 .idea/
+
+storage/

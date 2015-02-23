@@ -24,7 +24,7 @@ exports.signup = function(req, res) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
-	// Then save the user 
+	// Then save the user
 	user.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -50,6 +50,7 @@ exports.signup = function(req, res) {
  * Signin after passport authentication
  */
 exports.signin = function(req, res, next) {
+	console.log(req.body);
 	passport.authenticate('local', function(err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);
@@ -65,6 +66,23 @@ exports.signin = function(req, res, next) {
 					res.jsonp(user);
 				}
 			});
+		}
+	})(req, res, next);
+};
+
+/**
+ * Express middleware to allow authentication of a user using local passport
+ * strategy
+ * @param  {Request}   req  The Express request
+ * @param  {Response}   res  The Express response
+ * @param  {Function} next The next function to call in the Express route
+ */
+exports.authenticate = function (req, res, next) {
+	passport.authenticate('local', { session: false }, function(err, user, info) {
+		if (err || !user) {
+			res.status(401).send(info);
+		} else {
+			next();
 		}
 	})(req, res, next);
 };

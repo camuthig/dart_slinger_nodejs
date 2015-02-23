@@ -11,8 +11,11 @@ module.exports = function(app) {
 
 	app.route('/games/:gameId')
 		.get(games.read)
-		.put(users.requiresLogin, games.hasAuthorization, games.update)
+		.put(users.requiresLogin, games.hasAuthorization, games.isUpdatePermitted, games.update)
 		.delete(users.requiresLogin, games.hasAuthorization, games.delete);
+
+	app.route('/games/:gameId/allow_update')
+		.post(users.authenticate, games.giveScoreAuthorization);
 
 	// Finish by binding the Game middleware
 	app.param('gameId', games.gameByID);
