@@ -358,15 +358,29 @@ exports.isUpdatePermitted = function(req, res, next) {
                         }
                     });
                 } else {
-                    var accept_key = req.game._id.toString() + '_opponent_update_accept';
-                    client.expire(accept_key, 600, function(err) {
-                        if(err) {
-							winston.error(
-                            'Unable to update update_accept key for game.',
-                            {err: err, game: req.game._id});
-						}
-                    });
-                    next();
+					var opponent = (req.game.current_thrower._id === req.game.player1.id) ? req.game.player2 : req.game.player1;
+					if (req.user._id.toString() === opponent._id.toString()) {
+						var accept_key = req.game._id.toString() + '_opponent_update_accept';
+						client.expire(accept_key, 600, function(err) {
+							if(err) {
+								winston.error(
+								'Unable to update update_accept key for game.',
+								{err: err, game: req.game._id});
+							}
+						});
+						next();
+					} else {
+						winston.error(
+							'Only the opponent of a player can be allowed to update the score.',
+							{game: req.game._id.toString()}
+						);
+						return res.status(403).send({
+							error: {
+								message: 'Only the opponent of a player can be allowed to update the score.'
+							}
+						});
+					}
+
                 }
             }],
             function(err) {
