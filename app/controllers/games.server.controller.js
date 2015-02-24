@@ -151,12 +151,13 @@ function validateUpdateRequst(req, next) {
 
 /**
  * Store the data on the round for performance tracking
- * @param   {Request}   req         The express request
- * @param   {Game}      game_id     The id of the Game object the round is part of
- * @param   {User}      user_id     The id of the User object the round is linked to
+ * @param   {Request}   req         	The express request
+ * @param   {Game}      game_id     	The id of the Game object the round is part of
+ * @param   {User}      user_id     	The id of the User object the round is linked to
+ * @param	{int}		round_number	The order of the round in the game
  */
-function saveRound(req, game_id, user_id) {
-    var round = new Round({game: game_id, user: user_id});
+function saveRound(req, game_id, user_id, round_number) {
+    var round = new Round({game: game_id, user: user_id, order: round_number});
     round.save(function(err) {
         if (err) {
             logger.error('Error saving the round: ' + errorHandler.getErrorMessage(err));
@@ -204,8 +205,16 @@ function updateLogic(req, next) {
             var adapter = getGameAdapter(game.game_type.toLowerCase());
             game = adapter.updateGameWithRound(req.body.round, game);
 
+			// Update the current thrower and round number
             var old_thrower = game.current_thrower;
-            game.current_thrower = (game.current_thrower.id === game.player1.id) ? game.player2 : game.player1;
+			var old_round = game.current_round;
+			if (game.current_thrower.id === game.player1.id) {
+				game.current_thrower = game.player2;
+			} else {
+				game.current_thrower = game.player1;
+				// Only update the round number of player2 just threw
+				game.current_round++;
+			}
 
             game.save(function(err) {
                 if (err) {
@@ -239,7 +248,7 @@ function updateLogic(req, next) {
             });
 
             // Save the round information
-            saveRound(req, game._id, old_thrower.id);
+            saveRound(req, game._id, old_thrower.id, old_round);
         }
     });
 }

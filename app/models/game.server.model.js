@@ -39,6 +39,10 @@ var GameSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
+	current_round: {
+		type: Number,
+		default: 1
+	},
 	scoreboard: {
 		type: Schema.Types.Mixed
 	},

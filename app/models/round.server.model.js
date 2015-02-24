@@ -23,6 +23,10 @@ var RoundSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User',
 		required: true
+	},
+	order: {
+		type: Number,
+		required: true
 	}
 
 });
