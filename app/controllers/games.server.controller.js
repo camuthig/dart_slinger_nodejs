@@ -31,7 +31,10 @@ function createLogic(req, next) {
 	if(req.user._id.toString() !== req.body.player1.toString() &&
 		req.user._id.toString() !== req.body.player2.toString()) {
 		return next({
+            status: 403,
 			error: {
+                code: 403,
+                error: 'forbidden',
 				message: 'You must be one of the players in the created game.'
 			}
 		});
@@ -44,7 +47,10 @@ function createLogic(req, next) {
 		if (err) {
             logger.error('Unable to save created game.', {message: errorHandler.getErrorMessage(err)});
 			next({
+                status: 500,
 				error: {
+                    code: 500,
+                    error: 'internal',
 					message: errorHandler.getErrorMessage(err)
 				}
 			});
@@ -59,7 +65,7 @@ module.exports.createLogic = createLogic;
 exports.create = function(req, res) {
 	createLogic(req, function(result) {
 		if ('error' in result) {
-			return res.status(400).send(result);
+			return res.status(result.status).send({error: result.error});
 		} else {
 			res.jsonp(result);
 		}
@@ -81,6 +87,7 @@ exports.read = function(req, res) {
 function validateUpdateRequst(req, next) {
 	var round = req.body.round;
 	var errors = {error: {}};
+    var fields = {};
 
 	// Invalid round data would be:
 	// 		Number not in 1-20 or 25
@@ -89,11 +96,15 @@ function validateUpdateRequst(req, next) {
 	// 		More than three throws in a round
 	if (_.size(round) > 3) {
         logger.error('More than three throws were included in the round.', {user: req.user.id});
-		errors = {
-			error: {
-				message: 'There can only be three throws per round.'
-			}
-		};
+        next(
+            {
+                status: 400,
+                error: {
+                    code: 400,
+                    error: 'invalid_request',
+                    message: 'There can only be three throws per round.'
+                }
+            });
 	}
 	for (var index = 1; index <= _.size(round); index++) {
 		var index_errors = [];
@@ -142,9 +153,16 @@ function validateUpdateRequst(req, next) {
         }
 
 		if (_.size(index_errors) !== 0) {
-			errors.error[index] = index_errors;
+		  fields[index] = index_errors;
 		}
 	}
+
+    if(!(_.isEmpty(fields))) {
+        errors.status = 422;
+        errors.error.code = 422;
+        errors.error.error = 'invalid_fields';
+        errors.error.fields = fields;
+    }
 
 	next(errors);
 }
@@ -192,7 +210,10 @@ function updateLogic(req, next) {
     if(game.winner){
         logger.error('The game is already completed.', {game: game.id});
         return next({
+            status: 400,
             error: {
+                code: 400,
+                error: 'invalid_request',
                 message: 'This game is already completed.'
             }
         });
@@ -220,7 +241,10 @@ function updateLogic(req, next) {
                 if (err) {
                     logger.error('Error saving the game after round update.', {error: errorHandler.getErrorMessage(err)});
                     return next({
+                        status: 500,
                         error: {
+                            code: 500,
+                            error: 'internal',
                             message: errorHandler.getErrorMessage(err)
                         }
                     });
@@ -232,7 +256,10 @@ function updateLogic(req, next) {
                             if (err) {
                                 logger.error('Error populating the winner displayName after round update.', {error: errorHandler.getErrorMessage(err)});
                                 return next({
+                                    status: 500,
                                     error: {
+                                        code: 500,
+                                        error: 'internal',
                                         message: errorHandler.getErrorMessage(err)
                                     }
                                 });
@@ -261,7 +288,8 @@ module.exports.updateLogic = updateLogic;
 exports.update = function(req, res) {
 	updateLogic(req, function(result) {
         if ('error' in result) {
-            return res.status(400).send(result);
+            console.log(result);
+            return res.status(result.status).send({error: result.error});
         } else {
             res.jsonp(result);
         }
@@ -276,7 +304,9 @@ exports.delete = function(req, res) {
 
 	game.remove(function(err) {
 		if (err) {
-			return res.status(400).send({
+			return res.status(500).send({
+                code: 500,
+                error: 'internal',
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
@@ -295,7 +325,9 @@ exports.list = function(req, res) { Game.find().sort('-created').
 	populate('winner', 'displayName').
 	exec(function(err, games) {
 		if (err) {
-			return res.status(400).send({
+			return res.status(500).send({
+                code: 500,
+                error: 'internal',
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
@@ -313,7 +345,27 @@ exports.gameByID = function(req, res, next, id) { Game.findById(id).
 	populate('current_thrower', 'displayName').
 	populate('winner', 'displayName').
 	exec(function(err, game) {
-		if (err) return next(err);
+		if (err) {
+            winston.error(
+                'Unable to find game in database.',
+                {err: err});
+            if (err.name === 'CastError') {
+                res.status(404).send(
+                    {
+                        code: 404,
+                        error: 'not_found',
+                        message: 'Unable to find the game.'
+                    });
+            } else {
+                res.status(500).send(
+                    {
+                        code: 500,
+                        error: 'internal',
+                        message: 'Error getting game from the database.'
+                    });
+            }
+            return;
+        }
 		if (! game) return next(new Error('Failed to load Game ' + id));
 		req.game = game ;
 		next();
@@ -354,33 +406,23 @@ exports.isUpdatePermitted = function(req, res, next) {
                     );
                     return res.status(403).send({
                         error:{
+                            code: 401,
+                            error: 'not_authorized',
                             message: 'You are not permitted to update round information for this user'
                         }
                     });
                 } else {
-					var opponent = (req.game.current_thrower._id === req.game.player1.id) ? req.game.player2 : req.game.player1;
-					if (req.user._id.toString() === opponent._id.toString()) {
-						var accept_key = req.game._id.toString() + '_opponent_update_accept';
-						client.expire(accept_key, 600, function(err) {
-							if(err) {
-								winston.error(
-								'Unable to update update_accept key for game.',
-								{err: err, game: req.game._id});
-							}
-						});
-						next();
-					} else {
-						winston.error(
-							'Only the opponent of a player can be allowed to update the score.',
-							{game: req.game._id.toString()}
-						);
-						return res.status(403).send({
-							error: {
-								message: 'Only the opponent of a player can be allowed to update the score.'
-							}
-						});
-					}
-
+                    // We don't need to verify that the updater is the opponent, since hasAuthorization
+                    // will ensure anyone hitting the update route is one of the two players of the game.
+					var accept_key = req.game._id.toString() + '_opponent_update_accept';
+					client.expire(accept_key, 600, function(err) {
+						if(err) {
+							winston.error(
+							'Unable to update update_accept key for game.',
+							{err: err, game: req.game._id});
+						}
+					});
+					next();
                 }
             }],
             function(err) {
@@ -412,7 +454,6 @@ exports.giveScoreAuthorization = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					console.log('Created the key');
 					callback(err, client, key);
 				}
 			});
@@ -428,7 +469,6 @@ exports.giveScoreAuthorization = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					console.log('Created the expire key');
 					res.status(200).send({success: true});
 				}
 			});
@@ -444,7 +484,14 @@ exports.giveScoreAuthorization = function(req, res) {
  */
 exports.hasAuthorization = function(req, res, next) {
 	if (req.game.player1.id !== req.user.id && req.game.player2.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
+		return res.status(403).send(
+            {
+                error: {
+                    code: 403,
+                    error: 'not_allowed',
+                    message: 'User is not authorized to update this game at all.'
+                }
+            });
 	}
 	next();
 };
